@@ -1,0 +1,215 @@
+body { 
+    font-family: "Segoe UI Variable", "Segoe UI", sans-serif; 
+    background: #f4f7f6; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; 
+    height: 100vh;
+}
+
+.dashboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; text-align: center; }
+
+.btn-card { 
+    width: 180px; 
+    height: 180px; 
+    background: white; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    text-decoration: none; 
+    color: #333;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    transition: transform 0.2s; 
+    border: 2px solid transparent; 
+    padding: 10px;
+    cursor: pointer;
+}
+
+.btn-card:hover { 
+    transform: translateY(-5px); 
+    border-color: #6264A7; 
+} 
+
+.btn-logo { 
+    width: 80px; 
+    height: 80px; 
+    object-fit: contain; 
+    margin-bottom: 15px; 
+}
+
+.logo-container { 
+    display: flex; 
+    gap: 5px; 
+    justify-content: center; 
+    margin-bottom: 15px; 
+}
+
+.mini-logo { 
+    width: 45px; 
+    height: 45px; 
+    object-fit: contain; 
+}
+
+.user-icon { 
+    filter: grayscale(100%); 
+    opacity: 0.6; 
+}
+
+h1 { grid-column: span 2; margin-bottom: 20px; color: #242424; font-size: 1.5rem; }
+span { font-weight: bold; font-size: 14px; }
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    background-color: orangered;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+.main-wrapper {
+    display: flex;
+    align-items: flex-start; /* Keeps the form at the top */
+    gap: 20px;               /* Space between form and preview */
+    padding: 20px;
+}
+
+/* Styling for the input form section (screen only) */
+#form-container {
+    flex: 0 0 350px; /* Fixed width for the form */
+    position: sticky;
+    top: 20px;       /* Keeps form visible while scrolling cards */
+}
+
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+.form-group input { width: 100%; padding: 8px; box-sizing: border-box; }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Card Printing Styles */
+.print-area { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    justify-content: center; 
+    width: 8.5in;
+}
+
+.card-container {
+    width: 3.5in; 
+    height: 2in; 
+    background: white; 
+    border: 1px solid #ccc;
+    display: flex; 
+    padding: 10px; 
+    box-sizing: border-box; 
+    overflow: hidden;
+}
+
+/* Fixed Left Side Layout */
+.card-left {
+    width: 40%; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px;
+}
+.card-left img { width: 80px; height: 80px; object-fit: contain; }
+
+/* Perfect 2x2 Grid for Combined Card */
+.card-left.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    align-items: center;
+    justify-items: center;
+}
+.card-left.grid-layout img { width: 45px; height: 45px; }
+
+/* Right Side Layout */
+.card-right { width: 60%; padding-left: 10px; display: flex; flex-direction: column; justify-content: center; }
+.card-name { font-weight: bold; font-size: 13px; margin: 0; line-height: 1.2; }
+.card-title, .card-room { font-size: 10px; margin: 2px 0; color: #444; }
+.card-right p { font-size: 10px; margin: 1px 0; }
+
+@media print {
+    /* 1. Reset body and html for full bleed */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* 2. Hide everything except the print area */
+    #form-container, button, .back-btn, .main-wrapper > *:not(.print-area) {
+        display: none !important;
+    }
+
+    /* 3. Optimize the Print Area */
+    .print-area {
+        display: grid !important;
+        /* Using 4in width total to stay safe within standard margins */
+        grid-template-columns: repeat(2, 3.5in); 
+        /* Slightly under 2in to ensure 5 rows fit height-wise */
+        grid-template-rows: repeat(5, 1.95in); 
+        
+        justify-content: center; /* Center the grid on the paper */
+        align-content: start;
+        gap: 5px;                 /* No gaps for easier cutting */
+        width: 100%;
+        height: auto;
+    }
+
+    /* 4. Ensure cards don't overflow */
+    .card-container {
+        border: 3pt solid black; 
+        box-sizing: border-box;   /* Includes border in the 3.5in x 1.95in */
+        page-break-inside: avoid;
+        overflow: hidden;
+    }
+}
+
+/* Optional: Forces the browser to ignore its own margins */
+@page {
+    size: letter;
+    margin: 0.25in; /* Small margin to prevent edge clipping */
+}

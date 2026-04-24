@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Cards Creator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-wrapper">
+        <div id="form-container">
+            <a href="/" class="back-btn">← Back to Home</a>
+            <h2>Modify Card Information</h2>
+            
+            <div class="form-group">
+                <label>Full Name:</label>
+                <input type="text" id="fullName">
+            </div>
+            <div class="form-group">
+                <label>Location/Title:</label>
+                <input type="text" id="title">
+            </div>
+            <div class="form-group">
+                <label>Room:</label>
+                <input type="text" id="room">
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="email">
+            </div>
+            <div class="form-group">
+                <label>Phone:</label>
+                <input type="tel" id="phone" value="334-244-3799">
+            </div>
+            
+            <div class="form-group">
+                <label>Upload Logo 1 (Top):</label>
+                <input type="file" id="logoUpload1" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label>Upload Logo 2 (Bottom):</label>
+                <input type="file" id="logoUpload2" accept="image/*">
+            </div>
+
+            <button onclick="updateCards()">Update Preview</button>
+            <button onclick="window.print()">Print Cards</button>
+        </div>
+
+        <div class="print-area" id="printArea"></div>
+    </div>
+
+    <script src="cards.js"></script>
+
+</body>
+</html>
