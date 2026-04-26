@@ -21,16 +21,12 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const userId = user?.result?._id || user?.result?.googleId;
-  const isAdmin = user?.result?.role === 'admin'; // Adjust 'role' based on your JWT/User object
+  const isAdmin = user?.result?.role === 'admin';
   const isCreator = userId && post?.creator && String(userId) === String(post?.creator);
   const canManage = isCreator || isAdmin;
 
-  console.log({
-  currentUserId: userId,
-  postCreatorId: post?.creator,
-  typesMatch: typeof userId === typeof post?.creator,
-  isCreatorResult: isCreator
-});
+  // Logic to determine if post was edited
+  const isEdited = post.updatedAt && new Date(post.updatedAt) > new Date(post.createdAt);
 
   return (
     <Card sx={{ borderRadius: '15px', height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -44,14 +40,24 @@ const Post = ({ post, setCurrentId }) => {
         }
         title={post.title}
         subheader={
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <Person fontSize="inherit" />
-            <Typography variant="caption">Created by: {post.name}</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Person fontSize="inherit" />
+              {/* Dynamic Label based on edit status */}
+              <Typography variant="caption" sx={{ fontWeight: 'bold' }}>
+                {isEdited ? 'Edited by:' : 'Created by:'} {post.name}
+              </Typography>
+            </Box>
+            <Typography variant="caption" color="text.secondary">
+              {new Date(isEdited ? post.updatedAt : post.createdAt).toLocaleDateString()}
+            </Typography>
           </Box>
         }
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">{post.message}</Typography>
+        <Typography variant="body2" color="text.secondary">
+          {post.message}
+        </Typography>
       </CardContent>
 
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
