@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Container, Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-// Import the actions we defined earlier
 import { getUsers, changeRole, removeUser } from '../../actions/users';
 
 const UserManagement = () => {

@@ -50,7 +50,7 @@ const Form = ({ currentId, setCurrentId }) => {
   return (
     <Paper sx={{ p: 2 }}>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a Message</Typography>
+        <Typography variant="h6">{currentId ? 'Edit' : 'Share'} a Message</Typography>
         
         <TextField 
           name="title" 
